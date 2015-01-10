@@ -54,3 +54,5 @@ gem 'foundation-rails'
 group :test do
   gem 'coveralls', require: false
 end
+
+ruby "2.1.3"
