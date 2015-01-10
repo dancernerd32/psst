@@ -15,6 +15,24 @@
     <div class="row">
       <div class="large-6 large-offset-3 columns">
         <div class="field">
+          <%= f.label :first_name %><br />
+          <%= f.text_field :first_name, autofocus: true %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <div class="field">
+          <%= f.label :last_name %><br />
+          <%= f.text_field :last_name, autofocus: true %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <div class="field">
           <%= f.label :username %><br />
           <%= f.text_field :username, autofocus: true %>
         </div>
