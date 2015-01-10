@@ -12,6 +12,12 @@ class User < ActiveRecord::Base
               case_sensitive: false
             }
 
+  validates :first_name,
+            presence: true
+
+  validates :last_name,
+            presence: true
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
