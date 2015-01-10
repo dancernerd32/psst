@@ -1,7 +1,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  config.authentication_keys = [ :login ]s
+  config.authentication_keys = [ :login ]
   config.reset_password_keys = [ :username ]
   config.confirmation_keys = [ :username ]
   # The secret key used by Devise. Devise uses this key to generate
