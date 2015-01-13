@@ -1,3 +1,15 @@
+<% if @post.errors.any? %>
+  <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <li><%= msg %></li>
+      </div>
+    </div>
+    <% end %>
+  </ul>
+<% end %>
+
 <div class="row">
   <div class="large-6 large-offset-3 columns">
     <%= form_for @post do |f| %>
@@ -16,14 +28,16 @@
 
 <div class="row">
   <div class="large-6 large-offset-3 columns">
-    <% @posts.each do |post| %>
-      <div class="row">
-        <%= post.user.username %>
-        <%= post.created_at %>
-      </div>
-      <div class="row">
-        <%= post.body %>
-      </div>
+    <% if @posts %>
+      <% @posts.each do |post| %>
+        <div class="row">
+          <%= post.user.username %>
+          <%= post.created_at %>
+        </div>
+        <div class="row">
+          <%= post.body %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

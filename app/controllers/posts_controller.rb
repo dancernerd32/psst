@@ -1,8 +1,12 @@
 class PostsController < ApplicationController
 
   def index
-    @post = Post.new
-    @posts = Post.all
+    if !current_user
+      redirect_to new_user_session_path
+    else
+      @post = Post.new
+      @posts = Post.all
+    end
   end
 
   def create
@@ -10,6 +14,8 @@ class PostsController < ApplicationController
     @post.user = current_user
     if @post.save
       redirect_to posts_path
+    else
+      render :index
     end
   end
 

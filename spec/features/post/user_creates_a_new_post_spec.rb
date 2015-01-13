@@ -36,10 +36,22 @@ feature "User creates a new public post", %{
 
     end
 
-    scenario "User provides invalid post"
+    scenario "User provides invalid post" do
+
+      visit posts_path
+
+      click_on "Submit"
+
+      expect(page).to have_content "can't be blank"
+    end
 
   end
 
-  scenario "Unauthenticated user tries to create a post"
+  scenario "Unauthenticated user tries to create a post" do
+
+    visit posts_path
+
+    expect(page).to have_content "Log in"
+  end
 
 end
