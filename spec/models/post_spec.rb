@@ -6,12 +6,12 @@ RSpec.describe Post, type: :model do
   it do
     should_not have_valid(:body).when(
       *blank_values,
-     "This post is going to be longer than 255 characters
-     this post is going to be longer than 255 characters
-     this post is going to be longer than 255 characters
-     this post is going to be longer than 255 characters
-     this post is going to be longer than 255 characters
-     this post is going to be longer than 255 characters"
+       "This post is going to be longer than 255 characters
+       this post is going to be longer than 255 characters
+       this post is going to be longer than 255 characters
+       this post is going to be longer than 255 characters
+       this post is going to be longer than 255 characters
+       this post is going to be longer than 255 characters"
     )
   end
 end
