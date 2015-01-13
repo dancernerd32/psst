@@ -4,7 +4,7 @@ class PostsController < ApplicationController
       redirect_to new_user_session_path
     else
       @post = Post.new
-      @posts = Post.all
+      @posts = Post.all.order(:created_at).reverse_order
     end
   end
 
