@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-
   def index
     if !current_user
       redirect_to new_user_session_path
@@ -24,5 +23,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:body)
   end
-
 end
