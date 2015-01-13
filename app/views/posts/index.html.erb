@@ -32,7 +32,7 @@
       <% @posts.each do |post| %>
         <div class="row">
           <%= post.user.username %>
-          <%= post.created_at %>
+          <%= format_date(post.created_at.to_s) %>
         </div>
         <div class="row">
           <%= post.body %>

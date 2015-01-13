@@ -30,21 +30,18 @@ feature "User views all posts", %{
     end
 
     scenario "User views multiple posts" do
-      post1 = FactoryGirl.create(:post, created_at: "2015-01-13 19:50:52 UTC")
-      visit posts_path
-      save_and_open_page
+      post1 = FactoryGirl.create(:post, created_at: "2015-01-13 16:29:07 -0500")
       post2 = FactoryGirl.create(:post)
       post3 = FactoryGirl.create(:post, user: @user1)
 
       visit posts_path
-      save_and_open_page
 
       expect(page).to have_content post1.body
       expect(page).to have_content post2.body
       expect(page).to have_content post3.body
       expect(page).to have_content post1.user.username
       expect(post3.body).to appear_before(post2.body)
-      expect(page).to have_content "January 1, 2015 at 7:50pm"
+      expect(page).to have_content "January 13, 2015 at 4:29pm"
 
     end
 
