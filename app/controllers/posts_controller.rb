@@ -14,6 +14,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path
     else
+      @posts = Post.all.order(:created_at).reverse_order
       render :index
     end
   end
