@@ -47,5 +47,11 @@ feature "User views all posts", %{
 
   end
 
-  scenario "Unauthenticated user tries to view posts"
+  scenario "Unauthenticated user tries to view posts" do
+
+    visit posts_path
+
+    expect(page).to have_content "Log in"
+  end
+
 end
