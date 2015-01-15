@@ -10,4 +10,9 @@ FactoryGirl.define do
     password_confirmation "password"
   end
 
+  factory :post do
+    sequence(:body) { |n| "text#{n}" }
+    user
+  end
+
 end
