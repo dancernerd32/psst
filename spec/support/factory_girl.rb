@@ -11,7 +11,7 @@ FactoryGirl.define do
   end
 
   factory :post do
-    sequence(:body) { |n| "text#{n}"}
+    sequence(:body) { |n| "text#{n}" }
     user
   end
 

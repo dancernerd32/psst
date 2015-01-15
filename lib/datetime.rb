@@ -1,6 +1,7 @@
 def split(datetime)
-  datetime = datetime.split("-")
+  datetime.split("-")
 end
+
 def month(datetime)
   months = {
     "01" => "January",
@@ -28,7 +29,7 @@ def year(datetime)
 end
 
 def time(datetime)
-  split_time =split(datetime)[2].split(" ")[1].split(":")
+  split_time = split(datetime)[2].split(" ")[1].split(":")
   time = []
   time << split_time[0].to_i % 12
   time << split_time[1]
@@ -41,5 +42,6 @@ def time(datetime)
 end
 
 def format_date(datetime)
-  "#{month(datetime)} #{day(datetime)}, #{year(datetime)} at #{time(datetime)[0]}:#{time(datetime)[1]}#{time(datetime)[2]}"
+  "#{month(datetime)} #{day(datetime)}, #{year(datetime)} at
+  #{time(datetime)[0]}:#{time(datetime)[1]}#{time(datetime)[2]}"
 end

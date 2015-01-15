@@ -13,7 +13,7 @@ feature "User views all posts", %{
   # [x] I can see the time of creation
   # [x] I can see the body of the post
   # [x] The posts are ordered from most recent to oldest
-  
+
   context "Authenticated user" do
     before(:each) do
       @user1 = FactoryGirl.create(:user)
