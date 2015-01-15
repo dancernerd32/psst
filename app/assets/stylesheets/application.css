@@ -15,3 +15,20 @@
  *= require foundation_and_overrides
 
  */
+
+ .post{
+   border: 1px solid black;
+   padding: 20px 0px 20px 0px;
+   margin: 10px;
+ }
+ .date{
+   float: right;
+ }
+ .username{
+   float: left;
+ }
+.post_header{
+  color: red;
+  background-color: blue;
+  border: 1px black solid;
+}
