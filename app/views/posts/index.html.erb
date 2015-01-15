@@ -25,19 +25,22 @@
     <% end %>
   </div>
 </div>
-
 <div class="row">
-  <div class="large-6 large-offset-3 columns">
-    <% if @posts %>
-      <% @posts.each do |post| %>
+</div>
+<% if @posts %>
+  <% @posts.each do |post| %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
         <div class="row">
-          <%= post.user.username %>
-          <%= format_date(post.created_at.to_s) %>
+          <div class="post_header">
+            <div class="username"><%= post.user.username %></div>
+            <div class="date"><%= format_date(post.created_at.to_s) %></div>
+          </div>
         </div>
         <div class="row">
           <%= post.body %>
         </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
