@@ -7,15 +7,13 @@ feature "User views all posts", %{
 } do
 
   # Acceptance Criteria
-  # [] I must be logged in to view posts
-  # [] I can see the username of the post creator
-  # [] I can see the date of creation
-  # [] I can see the time of creation
-  # [] I can see the body of the post
-  # [] The posts are ordered from most recent to oldest
-  # [] I can see at most 20 posts on a page
-  # [] If no posts exist the page, the site doesn't break
-
+  # [x] I must be logged in to view posts
+  # [x] I can see the username of the post creator
+  # [x] I can see the date of creation
+  # [x] I can see the time of creation
+  # [x] I can see the body of the post
+  # [x] The posts are ordered from most recent to oldest
+  
   context "Authenticated user" do
     before(:each) do
       @user1 = FactoryGirl.create(:user)
