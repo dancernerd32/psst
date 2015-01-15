@@ -37,12 +37,13 @@ feature "User creates a new public post", %{
     end
 
     scenario "User provides invalid post" do
-
+      post = FactoryGirl.create(:post)
       visit posts_path
 
       click_on "Submit"
 
       expect(page).to have_content "can't be blank"
+      expect(page).to have_content post.body
     end
 
   end
