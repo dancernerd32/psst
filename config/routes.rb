@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   root 'homes#index'
   devise_for :users
 
+  resources :friendships
+
+  resources :users, only: [:index, :show]
+
   resources :posts, only: [:index, :create]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
