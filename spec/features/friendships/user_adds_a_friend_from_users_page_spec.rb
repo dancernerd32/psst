@@ -62,9 +62,31 @@ feature "User adds a friend", %{
       friendship"
     end
 
-    scenario "User cannot add a friend who has already been added"
+    scenario "User cannot add a friend who has already been added" do
+
+      user2 = FactoryGirl.create(:user)
+      user3 = FactoryGirl.create(:user)
+
+      visit users_path
+
+      click_on "Add #{user2.username} as a friend"
+
+      visit users_path
+
+      expect(page).to have_content user2.username
+      expect(page).not_to have_content "Add #{user2.username} as a friend"
+      expect(page).to have_content "Add #{user3.username} as a friend"
+    end
   end
 
-  scenario "Unauthenticated user tries to add a friend"
+  scenario "Unauthenticated user tries to add a friend" do
+
+    user2 = FactoryGirl.create(:user)
+    user3 = FactoryGirl.create(:user)
+
+    visit users_path
+
+    expect(page).to have_content "You need to sign in or sign up"
+  end
 
 end
