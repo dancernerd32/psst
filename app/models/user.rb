@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   has_many :friendships
   has_many :friends, through: :friendships
   has_many :inverse_friendships, class_name: "Friendship"
@@ -11,8 +10,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessor :login
-
-
 
   validates :username,
             presence: true,

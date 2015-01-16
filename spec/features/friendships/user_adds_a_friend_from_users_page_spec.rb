@@ -45,8 +45,7 @@ feature "User adds a friend", %{
       visit users_path
 
       expect(page).to have_content user2.username
-      expect(page).to_not have_button("Add #{user2.username} as a friend",
-        friendship_path(user2))
+      expect(page).to_not have_content "Add #{user2.username} as a friend"
     end
 
     scenario "User adds friend from user profile page" do
@@ -81,8 +80,7 @@ feature "User adds a friend", %{
 
   scenario "Unauthenticated user tries to add a friend" do
 
-    user2 = FactoryGirl.create(:user)
-    user3 = FactoryGirl.create(:user)
+    FactoryGirl.create(:user)
 
     visit users_path
 
