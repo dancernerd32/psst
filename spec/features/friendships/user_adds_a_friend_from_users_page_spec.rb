@@ -49,18 +49,18 @@ feature "User adds a friend", %{
         friendship_path(user2))
     end
 
-    # scenario "User adds friend from user profile page" do
-    #
-    #   user2 = FactoryGirl.create(:user)
-    #
-    #   visit user_path(user2)
-    #
-    #   click_on "Add friend"
-    #
-    #   expect(page).to have_content "You have successfully added #{
-    #   user2.username} as a friend.  We'll let you know when they confirm your
-    #   friendship"
-    # end
+    scenario "User adds friend from user profile page" do
+
+      user2 = FactoryGirl.create(:user)
+
+      visit user_path(user2)
+
+      click_on "Add friend"
+
+      expect(page).to have_content "You have successfully added #{
+      user2.username} as a friend.  We'll let you know when they confirm your
+      friendship"
+    end
 
     scenario "User cannot add a friend who has already been added"
   end
