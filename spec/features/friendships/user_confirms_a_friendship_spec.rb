@@ -13,7 +13,7 @@ feature "User confirms friendship", %{
   #    added me as a friend
   # [] When I confirm a friendship, I am given a success message, letting me
   #    that we are now friends
-  # [] When I confirm a friendship, my friend receives a message in their
+  # *[] When I confirm a friendship, my friend receives a message in their
   #    mailbox, letting them know I have confirmed
   # *[] I can send messages to confirmed friends
   # *[] Confirmed friends can send messages to me
