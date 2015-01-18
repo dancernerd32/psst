@@ -1,103 +1,112 @@
-<div class="row">
-  <div class="large-6 large-offset-3 columns">
-    <h1>Friends</h1>
-  </div>
-</div>
-
-
-<% if @friends != [] %>
-<div id="friends">
-  <ul>
-    <% @friends.each do |friend| %>
-    <div class="row">
-      <div class="large-6 large-offset-3 columns">
-        <li>
-          <%= "#{ friend.first_name } #{ friend.last_name } -
-          #{friend.username}" %>
-        </li>
-      </div>
-    </div>
-    <% end %>
-  </ul>
-</div>
-
-<div class="row">
-  <div class="large-6 large-offset-3 columns">
-    <%= link_to "Find More Friends", users_path %>
-  </div>
-</div>
-<% else %>
+<% if @current_user == @user %>
   <div class="row">
     <div class="large-6 large-offset-3 columns">
-      <p>You have no friends on Psst! at this time</p>
-      <%= link_to("Find Friends", users_path) %>
+      <h1>Friends</h1>
     </div>
   </div>
-<% end %>
 
 
-<div class="row">
-  <div class="large-6 large-offset-3 columns">
-    <div id="friend_requests">
-      <h1>Friend Requests</h1>
-    </div>
-  </div>
-</div>
+  <% if @friends && @friends != []%>
 
-<% if @friend_requests != [] %>
-
-  <ul>
-    <% @friend_requests.each do |friend| %>
-    <div class="row">
-      <div class="large-6 large-offset-3 columns">
-        <li>
-          <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
-          #{friend[0].username}" %>
-          <%= form_tag user_friendship_path(@user, friend[1]), method: :patch do %>
-          <%= hidden_field_tag :confirmed, true %>
-          <%= submit_tag "Confirm friendship" %>
-          <% end %>
-        </li>
+  <div id="friends">
+    <ul>
+      <% @friends.each do |friend| %>
+      <div class="row">
+        <div class="large-6 large-offset-3 columns">
+          <li>
+            <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
+            #{friend[0].username}" %>
+            <%= button_to "Remove #{friend[0].username} from friends",
+                user_friendship_path(@user, friend[1]),
+                method: :delete, class: "small button" %>
+          </li>
+        </div>
       </div>
-    </div>
-    <% end %>
-  </ul>
+      <% end %>
+    </ul>
+  </div>
 
-<% else %>
   <div class="row">
     <div class="large-6 large-offset-3 columns">
-      <p>You have no friend requests at this time.</p>
+      <%= link_to "Find More Friends", users_path %>
     </div>
   </div>
-<% end %>
-
-<div class="row">
-  <div class="large-6 large-offset-3 columns">
-    <h1>Pending Friends</h1>
-  </div>
-</div>
-
-
-<% if @pending_friendships != [] %>
-<div id="pending_friends">
-  <ul>
-    <% @pending_friendships.each do |friend| %>
+  <% else %>
     <div class="row">
       <div class="large-6 large-offset-3 columns">
-        <li>
-          <%= "#{ friend.first_name } #{ friend.last_name } -
-          #{friend.username}" %>
-        </li>
+        <p>You have no friends on Psst! at this time</p>
+        <%= link_to("Find Friends", users_path) %>
       </div>
     </div>
-    <% end %>
-  </ul>
-</div>
+  <% end %>
 
-<% else %>
+
   <div class="row">
     <div class="large-6 large-offset-3 columns">
-      <p>You have no pending friends at this time.</p>
+      <div id="friend_requests">
+        <h1>Friend Requests</h1>
+      </div>
     </div>
   </div>
+
+  <% if @friend_requests && @friend_requests != [] %>
+
+    <ul>
+      <% @friend_requests.each do |friend| %>
+      <div class="row">
+        <div class="large-6 large-offset-3 columns">
+          <li>
+            <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
+            #{friend[0].username}" %>
+            <%= form_tag user_friendship_path(@user, friend[1]),
+                method: :patch do %>
+            <%= hidden_field_tag :confirmed, true %>
+            <%= submit_tag "Confirm friendship", class: "small button" %>
+            <% end %>
+          </li>
+        </div>
+      </div>
+      <% end %>
+    </ul>
+
+  <% else %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <p>You have no friend requests at this time.</p>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="large-6 large-offset-3 columns">
+      <h1>Pending Friends</h1>
+    </div>
+  </div>
+
+
+  <% if @pending_friendships && @pending_friendships != [] %>
+  <div id="pending_friends">
+    <ul>
+      <% @pending_friendships.each do |friend| %>
+      <div class="row">
+        <div class="large-6 large-offset-3 columns">
+          <li>
+            <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
+            #{friend[0].username}" %>
+          </li>
+        </div>
+      </div>
+      <% end %>
+    </ul>
+  </div>
+
+  <% else %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <p>You have no pending friends at this time.</p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>You are not authorized to view this page</p>
 <% end %>

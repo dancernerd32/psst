@@ -11,26 +11,27 @@ class FriendshipsController < ApplicationController
 
     def index
       authenticate_user!
-      @user = current_user
-      if current_user.friendships || current_user.inverse_friendships
-        @friends = []
-        current_user.friendships.each do |friend|
+      @current_user = current_user
+      @user = User.find(params[:user_id])
+      @friends = []
+      if @user.friendships
+        @user.friendships.each do |friend|
           if friend.confirmed?
-            @friends << friend.friend
+            @friends << [friend.friend, friend]
           end
         end
-        current_user.inverse_friendships.each do |friend|
+        @user.inverse_friendships.each do |friend|
           if friend.confirmed?
-            @friends << friend.user
+            @friends << [friend.user, friend]
           end
         end
         @friends.sort!
       end
 
-      if current_user.inverse_friendships
+      @friend_requests = []
+      if @user.inverse_friendships
 
-        @friend_requests = []
-        current_user.inverse_friendships.each do |friend|
+        @user.inverse_friendships.each do |friend|
           if !friend.confirmed?
             @friend_requests << [friend.user, friend]
           end
@@ -38,12 +39,12 @@ class FriendshipsController < ApplicationController
         @friend_requests.sort!
       end
 
-      if current_user.friendships
+      @pending_friendships = []
+      if @user.friendships
 
-        @pending_friendships = []
-        current_user.friendships.each do |friend|
+        @user.friendships.each do |friend|
           if !friend.confirmed?
-            @pending_friendships << friend.friend
+            @pending_friendships << [friend.friend, friend]
           end
         end
         @pending_friendships.sort!
@@ -58,6 +59,22 @@ class FriendshipsController < ApplicationController
     if user.inverse_friendships.update(params[:id], { confirmed: true })
       flash[:notice] = "You and #{ friendship.user.username } are now friends."
       redirect_to user_friendships_path(current_user)
+    end
+  end
+
+  def destroy
+    @user = current_user
+    friendship = Friendship.find(params[:id])
+
+    if friendship.user == @user
+      @friend = friendship.friend
+    else
+      @friend = friendship.user
+    end
+    if friendship.destroy
+      flash[:notice] = "#{@friend.username} was successfully removed from your
+                       friends"
+      redirect_to user_friendships_path(@user)
     end
   end
 end
