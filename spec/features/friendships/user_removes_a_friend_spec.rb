@@ -78,5 +78,6 @@ feature "User removes a friend", %{
 
       expect(page).to have_content "You are not authorized to view this page"
       expect(page).not_to have_content "Remove #{user2.username} from friends"
+    end
   end
 end
