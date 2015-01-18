@@ -44,4 +44,12 @@ feature "User confirms friendship", %{
 
     end
   end
+
+  scenario "Unauthenticated user cannot confirm a friendship" do
+    @user1 = FactoryGirl.create(:user)
+    visit "/users/#{@user1.id}/friendships"
+
+    expect(page).to have_content "Log in"
+
+  end
 end

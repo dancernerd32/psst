@@ -10,6 +10,7 @@ class FriendshipsController < ApplicationController
     end
 
     def index
+      authenticate_user!
       @user = current_user
       # if current_user.friends || current_user.inverse_friends
       #   @friends = []
