@@ -40,7 +40,7 @@ feature "User confirms friendship", %{
 
       click_on "Confirm friendship"
 
-      expect(page).to have_content "You and #{ user2.username } are now friends."
+      expect(page).to have_content "You and #{ user2.username } are now friends"
 
     end
   end
