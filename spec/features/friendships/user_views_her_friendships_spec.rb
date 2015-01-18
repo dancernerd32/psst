@@ -8,6 +8,7 @@ feature "User views her friendships", %{
 
   # Acceptance Criteria
   # [] I must be logged in
+  # [] I can only view my own friends
   # [] I can click on the friends link in the nav bar to be taken to my friends
   #    page
   # [] I can see all of my confirmed friends and inverse friends
@@ -41,7 +42,7 @@ feature "User views her friendships", %{
       Friendship.create(user: @user1, friend: user5, confirmed: false)
       Friendship.create(user: user2, friend: user6, confirmed: true)
 
-      visit user_friendships_path(@user1)
+      click_on "Friends"
 
       expect(page).to have_content user2.username
       expect(page).to have_content user3.username
@@ -60,11 +61,22 @@ feature "User views her friendships", %{
 
       Friendship.create(user: user2, friend: user6, confirmed: true)
 
-      visit user_friendships_path(@user1)
+      click_on "Friends"
 
       expect(page).to have_content "You have no friends on Psst! at this time"
       expect(page).to have_content "You have no friend requests at this time"
       expect(page).to have_content "You have no pending friends at this time"
+    end
+
+    scenario "User cannot view another user's friends" do
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      Friendship.create(user: user1, friend: user2, confirmed: true)
+
+      visit user_friendships_path(user1)
+
+      expect(page).to have_content "You are not authorized to view this page"
+      expect(page).not_to have_content user2.username
     end
   end
 
