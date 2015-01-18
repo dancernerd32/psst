@@ -8,7 +8,7 @@
   <div class="large-6 large-offset-3 columns">
     <% if !current_user.friends.include?(@user) &&
        !current_user.inverse_friends.include?(@user) &&
-       user != current_user %>
+       @user != current_user %>
       <%= link_to("Add friend",
       friendships_path(friend_id: @user.id), method: :post) %>
     <% end %>
