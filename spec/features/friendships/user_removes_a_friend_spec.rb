@@ -69,7 +69,8 @@ feature "User removes a friend", %{
 
       expect(page).not_to have_content "Remove #{friend.username} from friends"
     end
-    scenario "User has no option to remove a friendship with a non-friend user" do
+    scenario "User has no option to remove a friendship with a non-friend user"
+    do
       user1 = FactoryGirl.create(:user)
       user2 = FactoryGirl.create(:user)
       Friendship.create(user: user1, friend: user2, confirmed: true)
