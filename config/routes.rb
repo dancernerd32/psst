@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root 'homes#index'
   devise_for :users
 
-  resources :friendships
+  resources :friendships, only: [:create]
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show] do
+    resources :friendships, only: [:index, :update]
+  end
 
   resources :posts, only: [:index, :create]
 
