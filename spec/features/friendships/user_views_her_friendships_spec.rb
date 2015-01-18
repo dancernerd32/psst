@@ -61,7 +61,6 @@ feature "User views her friendships", %{
       Friendship.create(user: user2, friend: user6, confirmed: true)
 
       visit user_friendships_path(@user1)
-      save_and_open_page
 
       expect(page).not_to have_content user6.username
       expect(page).to have_content "You have no friends on Psst! at this time"
