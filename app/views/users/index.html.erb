@@ -6,8 +6,10 @@
         <li>
           <%= link_to("#{user.first_name} #{user.last_name} - #{user.username}",
           user_path(user)) %>
-          <% if !current_user.friends.include?(user) %>
-            <div class= "small button">
+          <% if !current_user.friends.include?(user) &&
+             !current_user.inverse_friends.include?(user) &&
+             user != current_user %>
+            <div>
               <%= link_to("Add #{user.username} as a friend",
               friendships_path(friend_id: user.id), method: :post) %>
             </div>

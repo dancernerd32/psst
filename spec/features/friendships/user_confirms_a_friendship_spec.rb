@@ -43,6 +43,16 @@ feature "User confirms friendship", %{
       expect(page).to have_content "You and #{ user2.username } are now friends"
 
     end
+    scenario "User cannot confirm a friendship another user's friendship" do
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      Friendship.create(user: user1, friend: user2, confirmed: true)
+
+      visit user_friendships_path(user1)
+
+      expect(page).to have_content "You are not authorized to view this page"
+      expect(page).not_to have_content "Confirm"
+    end
   end
 
   scenario "Unauthenticated user cannot confirm a friendship" do
