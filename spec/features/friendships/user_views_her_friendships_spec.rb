@@ -53,16 +53,15 @@ feature "User views her friendships", %{
 
     scenario "User has no friends, pending friendships, or friend requests" do
       user2 = FactoryGirl.create(:user)
-      user3 = FactoryGirl.create(:user)
-      user4 = FactoryGirl.create(:user)
-      user5 = FactoryGirl.create(:user)
+      FactoryGirl.create(:user)
+      FactoryGirl.create(:user)
+      FactoryGirl.create(:user)
       user6 = FactoryGirl.create(:user)
 
       Friendship.create(user: user2, friend: user6, confirmed: true)
 
       visit user_friendships_path(@user1)
 
-      expect(page).not_to have_content user6.username
       expect(page).to have_content "You have no friends on Psst! at this time"
       expect(page).to have_content "You have no friend requests at this time"
       expect(page).to have_content "You have no pending friends at this time"
@@ -78,5 +77,4 @@ feature "User views her friendships", %{
 
     expect(page).to have_content "Log in"
   end
-
 end
