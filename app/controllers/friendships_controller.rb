@@ -12,22 +12,22 @@ class FriendshipsController < ApplicationController
     def index
       authenticate_user!
       @user = current_user
-      # if current_user.friends || current_user.inverse_friends
-      #   @friends = []
-      #   current_user.friendships.each do |friend|
-      #     if friend.confirmed?
-      #       @friends << friend.friend
-      #     end
-      #   end
-      #   current_user.inverse_friendships.each do |friend|
-      #     if friend.confirmed?
-      #       @friends << friend.user
-      #     end
-      #   end
-      #   @friends.sort!
-      # end
+      if current_user.friendships || current_user.inverse_friendships
+        @friends = []
+        current_user.friendships.each do |friend|
+          if friend.confirmed?
+            @friends << friend.friend
+          end
+        end
+        current_user.inverse_friendships.each do |friend|
+          if friend.confirmed?
+            @friends << friend.user
+          end
+        end
+        @friends.sort!
+      end
 
-      if current_user.inverse_friends
+      if current_user.inverse_friendships
 
         @friend_requests = []
         current_user.inverse_friendships.each do |friend|
@@ -36,6 +36,17 @@ class FriendshipsController < ApplicationController
           end
         end
         @friend_requests.sort!
+      end
+
+      if current_user.friendships
+
+        @pending_friendships = []
+        current_user.friendships.each do |friend|
+          if !friend.confirmed?
+            @pending_friendships << friend.friend
+          end
+        end
+        @pending_friendships.sort!
       end
     end
   end

@@ -4,13 +4,47 @@
   </div>
 </div>
 
+
+<% if @friends != [] %>
+<div id="friends">
+  <ul>
+    <% @friends.each do |friend| %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <li>
+          <%= "#{ friend.first_name } #{ friend.last_name } -
+          #{friend.username}" %>
+        </li>
+      </div>
+    </div>
+    <% end %>
+  </ul>
+</div>
+
 <div class="row">
   <div class="large-6 large-offset-3 columns">
-    <h1>Friend Requests</h1>
+    <%= link_to "Find More Friends", users_path %>
+  </div>
+</div>
+<% else %>
+  <div class="row">
+    <div class="large-6 large-offset-3 columns">
+      <p>You have no friends on Psst! at this time</p>
+      <%= link_to("Find Friends", users_path) %>
+    </div>
+  </div>
+<% end %>
+
+
+<div class="row">
+  <div class="large-6 large-offset-3 columns">
+    <div id="friend_requests">
+      <h1>Friend Requests</h1>
+    </div>
   </div>
 </div>
 
-<% if @friend_requests %>
+<% if @friend_requests != [] %>
 
   <ul>
     <% @friend_requests.each do |friend| %>
@@ -29,4 +63,41 @@
     <% end %>
   </ul>
 
+<% else %>
+  <div class="row">
+    <div class="large-6 large-offset-3 columns">
+      <p>You have no friend requests at this time.</p>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="large-6 large-offset-3 columns">
+    <h1>Pending Friends</h1>
+  </div>
+</div>
+
+
+<% if @pending_friendships != [] %>
+<div id="pending_friends">
+  <ul>
+    <% @pending_friendships.each do |friend| %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <li>
+          <%= "#{ friend.first_name } #{ friend.last_name } -
+          #{friend.username}" %>
+        </li>
+      </div>
+    </div>
+    <% end %>
+  </ul>
+</div>
+
+<% else %>
+  <div class="row">
+    <div class="large-6 large-offset-3 columns">
+      <p>You have no pending friends at this time.</p>
+    </div>
+  </div>
 <% end %>
