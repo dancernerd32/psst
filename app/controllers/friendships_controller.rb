@@ -31,7 +31,7 @@ class FriendshipsController < ApplicationController
         @friend_requests = []
         current_user.inverse_friendships.each do |friend|
           if !friend.confirmed?
-            @friend_requests << [ friend.user, friend ]
+            @friend_requests << [friend.user, friend]
           end
         end
         @friend_requests.sort!
@@ -43,8 +43,8 @@ class FriendshipsController < ApplicationController
     authenticate_user!
     user = current_user
     friendship = Friendship.find(params[:id])
-    if user.inverse_friendships.update(params[:id], {confirmed: true})
-      flash[:notice] = "You and #{friendship.user.username} are now friends."
+    if user.inverse_friendships.update(params[:id], { confirmed: true })
+      flash[:notice] = "You and #{ friendship.user.username } are now friends."
       redirect_to user_friendships_path(current_user)
     end
   end
