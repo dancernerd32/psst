@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="large-6 large-offset-3 columns">
+    <h1>Friends</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 large-offset-3 columns">
+    <h1>Friend Requests</h1>
+  </div>
+</div>
+
+<% if @friend_requests %>
+
+  <ul>
+    <% @friend_requests.each do |friend| %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <li>
+          <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
+          #{friend[0].username}" %>
+          <%= form_tag user_friendship_path(@user, friend[1]), method: :patch do %>
+          <%= hidden_field_tag :confirmed, true %>
+          <%= submit_tag "Confirm friendship" %>
+          <% end %>
+        </li>
+      </div>
+    </div>
+    <% end %>
+  </ul>
+
+<% end %>

@@ -15,6 +15,11 @@
     </ul>
 
     <section class="top-bar-section">
+      <% if signed_in? %>
+        <ul class="left">
+          <li><%= link_to "Friends", user_friendships_path(current_user) %></li>
+        </ul>
+      <% end %>
       <ul class="right">
         <%- if current_user -%>
           <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
