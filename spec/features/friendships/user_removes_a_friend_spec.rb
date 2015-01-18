@@ -69,15 +69,5 @@ feature "User removes a friend", %{
 
       expect(page).not_to have_content "Remove #{friend.username} from friends"
     end
-    scenario "User cannot remove another user's friendship" do
-      user1 = FactoryGirl.create(:user)
-      user2 = FactoryGirl.create(:user)
-      Friendship.create(user: user1, friend: user2, confirmed: true)
-
-      visit user_friendships_path(user1)
-
-      expect(page).to have_content "You are not authorized to view this page"
-      expect(page).not_to have_content "Remove #{user2.username} from friends"
-    end
   end
 end
