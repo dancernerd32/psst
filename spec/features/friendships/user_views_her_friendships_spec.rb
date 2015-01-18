@@ -66,8 +66,6 @@ feature "User views her friendships", %{
       expect(page).to have_content "You have no friend requests at this time"
       expect(page).to have_content "You have no pending friends at this time"
     end
-
-
   end
 
   scenario "unauthenticated user tries to view friends" do
