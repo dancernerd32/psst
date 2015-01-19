@@ -7,11 +7,11 @@ feature "User confirms friendship", %{
 } do
 
   # Acceptance Criteria
-  # [] I must be logged in
+  # [x] I must be logged in
   # [] Someone must have added me as a friend
-  # [] When I visit my mailbox I can see a message, letting me know someone has
+  # *[] When I visit my mailbox I can see a message, letting me know someone has
   #    added me as a friend
-  # [] When I confirm a friendship, I am given a success message, letting me
+  # [x] When I confirm a friendship, I am given a success message, letting me
   #    that we are now friends
   # *[] When I confirm a friendship, my friend receives a message in their
   #    mailbox, letting them know I have confirmed
@@ -41,14 +41,16 @@ feature "User confirms friendship", %{
       click_on "Confirm friendship"
 
       expect(page).to have_content "You and #{ user2.username } are now friends"
+      click_on "Friends"
+
+      expect(page).to have_content(user2.username)
 
     end
     scenario "User cannot confirm a friendship another user's friendship" do
-      user1 = FactoryGirl.create(:user)
-      user2 = FactoryGirl.create(:user)
-      Friendship.create(user: user1, friend: user2, confirmed: true)
+      users = FactoryGirl.create_list(:user, 2)
+      Friendship.create(user: users[0], friend: users[1], confirmed: false)
 
-      visit user_friendships_path(user1)
+      visit user_friendships_path(users[0])
 
       expect(page).to have_content "You are not authorized to view this page"
       expect(page).not_to have_content "Confirm"
@@ -57,7 +59,7 @@ feature "User confirms friendship", %{
 
   scenario "Unauthenticated user cannot confirm a friendship" do
     @user1 = FactoryGirl.create(:user)
-    visit "/users/#{@user1.id}/friendships"
+    visit user_friendships_path(@user1)
 
     expect(page).to have_content "Log in"
 

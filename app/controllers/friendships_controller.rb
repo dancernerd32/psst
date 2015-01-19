@@ -8,48 +8,34 @@ class FriendshipsController < ApplicationController
 
       redirect_to root_path
     end
+  end
 
-    def index
-      authenticate_user!
-      @current_user = current_user
-      @user = User.find(params[:user_id])
-      @friends = []
-      if @user.friendships
-        @user.friendships.each do |friend|
-          if friend.confirmed?
-            @friends << [friend.friend, friend]
-          end
-        end
-        @user.inverse_friendships.each do |friend|
-          if friend.confirmed?
-            @friends << [friend.user, friend]
-          end
-        end
-        @friends.sort!
-      end
+  def index
+    authenticate_user!
 
-      @friend_requests = []
-      if @user.inverse_friendships
+    @current_user = current_user
+    @user = User.find(params[:user_id])
 
-        @user.inverse_friendships.each do |friend|
-          if !friend.confirmed?
-            @friend_requests << [friend.user, friend]
-          end
-        end
-        @friend_requests.sort!
-      end
-
-      @pending_friendships = []
-      if @user.friendships
-
-        @user.friendships.each do |friend|
-          if !friend.confirmed?
-            @pending_friendships << [friend.friend, friend]
-          end
-        end
-        @pending_friendships.sort!
-      end
+    @friends = []
+    Friendship.where(user: @user, confirmed: true).each do |friendship|
+      @friends << [friendship.friend, friendship]
     end
+    Friendship.where(friend: @user, confirmed: true).each do |friendship|
+      @friends << [friendship.user, friendship]
+    end
+    @friends.sort!
+
+    @friend_requests = []
+    Friendship.where(friend: @user, confirmed: false).each do |friendship|
+      @friend_requests << [friendship.user, friendship]
+    end
+    @friend_requests.sort!
+
+    @pending_friendships = []
+    Friendship.where(user: @user, confirmed: false).each do |friendship|
+      @pending_friendships << [friendship.friend, friendship]
+    end
+    @pending_friendships.sort!
   end
 
   def update
