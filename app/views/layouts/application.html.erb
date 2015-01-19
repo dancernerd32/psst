@@ -17,6 +17,7 @@
     <section class="top-bar-section">
       <% if signed_in? %>
         <ul class="left">
+          <li><%= link_to "Feed", posts_path %></li>
           <li><%= link_to "Friends", user_friendships_path(current_user) %></li>
         </ul>
       <% end %>

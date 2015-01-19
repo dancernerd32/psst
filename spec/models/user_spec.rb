@@ -8,4 +8,8 @@ RSpec.describe User, type: :model do
   it { should_not have_valid(:first_name).when(*blank_values) }
   it { should have_valid(:last_name).when("Any 1 .!@#$%^&*}text") }
   it { should_not have_valid(:last_name).when(*blank_values) }
+
+  it { should have_many(:friendships).dependent(:destroy) }
+  it { should have_many(:inverse_friendships).dependent(:destroy) }
+  it { should have_many(:posts).dependent(:destroy) }
 end
