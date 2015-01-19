@@ -81,7 +81,7 @@ feature "User views her friendships", %{
     end
 
     scenario "User has no friends, pending friendships, or friend requests" do
-      users = FactoryGirl.create_list(:user, 5)
+      FactoryGirl.create_list(:user, 5)
 
       click_on "Friends"
 
@@ -103,7 +103,6 @@ feature "User views her friendships", %{
       expect(page).not_to have_content user1.username
       expect(page).not_to have_content user2.username
     end
-
 
     scenario "User cannot view another user's friends" do
       user1 = FactoryGirl.create(:user)
