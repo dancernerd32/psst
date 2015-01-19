@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'posts#index'
+  root "posts#index"
   devise_for :users
 
   resources :friendships, only: [:create]
@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: [:index, :create]
-
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

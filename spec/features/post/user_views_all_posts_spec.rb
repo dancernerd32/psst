@@ -8,13 +8,12 @@ feature "User views all posts", %{
 
   # Acceptance Criteria
   # [x] I must be logged in to view posts
-  # [] I can only see my friends' and my own posts
+  # [x] I can only see my friends' and my own posts
   # [x] I can see the username of the post creator
   # [x] I can see the date of creation
   # [x] I can see the time of creation
   # [x] I can see the body of the post
   # [x] The posts are ordered from most recent to oldest
-
 
   context "Authenticated user" do
     before(:each) do
@@ -28,7 +27,6 @@ feature "User views all posts", %{
       fill_in "Password", with: @user1.password
       click_on "Log in"
     end
-
 
     scenario "User sees her inverse-friend's post" do
       user = FactoryGirl.create(:user)
@@ -97,7 +95,11 @@ feature "User views all posts", %{
       Friendship.create(user: @user1, friend: users[0], confirmed: true)
       Friendship.create(user: users[1], friend: @user1, confirmed: true)
 
-      post1 = FactoryGirl.create(:post, user: users[0], created_at: "2015-01-13 16:29:07 -0500")
+      post1 = FactoryGirl.create(
+              :post,
+              user: users[0],
+              created_at: "2015-01-13 16:29:07 -0500"
+              )
       post2 = FactoryGirl.create(:post, user: users[1])
       post3 = FactoryGirl.create(:post, user: @user1)
 
