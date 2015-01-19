@@ -38,9 +38,6 @@ class FriendshipsController < ApplicationController
     @pending_friendships.sort!
   end
 
-
-
-
   def update
     authenticate_user!
     user = current_user
