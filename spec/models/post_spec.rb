@@ -14,4 +14,6 @@ RSpec.describe Post, type: :model do
        this post is going to be longer than 255 characters"
     )
   end
+
+  it { should belong_to :user }
 end
