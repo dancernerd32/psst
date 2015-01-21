@@ -1,5 +1,3 @@
-require "datetime"
-
 def friends_post?(post)
   Friendship.where(user: current_user, confirmed: true).each do |friendship|
     if post.user == friendship.friend
