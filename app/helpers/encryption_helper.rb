@@ -19,7 +19,7 @@ module EncryptionHelper
   end
 
   def euclidean_algorithm(a, b)
-    euclidean_algorithm = [[a, a/b, b, a%b]]
+    euclidean_algorithm = [[a, a / b, b, a % b]]
     n = 0
     while euclidean_algorithm[n][3] > 0
       iteration = [euclidean_algorithm[n][2],
@@ -34,7 +34,7 @@ module EncryptionHelper
   end
 
   def gcd(a, b)
-    e_a = euclidean_algorithm(a,b)
+    e_a = euclidean_algorithm(a, b)
     if e_a.length > 1
       e_a[e_a.length - 2][3]
     else
@@ -44,7 +44,7 @@ module EncryptionHelper
 
   def calculate_public_key(p, q)
     m = p * q
-    phi_of_m = (p-1)*(q-1)
+    phi_of_m = (p - 1) * (q - 1)
 
     k = rand(10000000)
 
@@ -52,7 +52,7 @@ module EncryptionHelper
       k = rand(10000000)
     end
 
-    [m,k]
+    [m, k]
   end
 
   def encoder_hash
@@ -75,16 +75,14 @@ module EncryptionHelper
   end
 
   def encode(message)
-
-    #strips message and puts each letter into it's own space in an array
+    # strips message and puts each letter into it's own space in an array
     message_array = message.downcase.gsub(/[^a-z]/, "").split("")
     encoded_message = []
     message_array.each do |letter|
       encoded_message << encoder_hash[letter]
     end
     encoded_message.join('')
-    #returns encoded message as a string of digits
-
+    # returns encoded message as a string of digits
   end
 
   def split_message(message, m)
@@ -101,7 +99,7 @@ module EncryptionHelper
     while k > 0
       x = Math.log2(k).to_i
       x_array << x
-      k -= 2**x
+      k -= 2 ** x
     end
 
     successive_squaring = [number]
@@ -114,7 +112,7 @@ module EncryptionHelper
     product = 1
 
     x_array.each do |y|
-      product *= successive_squaring[x]
+      product *= successive_squaring[y]
       product %= m
     end
     product
@@ -133,15 +131,14 @@ module EncryptionHelper
       n = successive_squaring(piece, m, k)
       encrypted_message_array << n
     end
-
   end
 
   # def create_gobilty_gook(encrypted_message)
-  #   #takes encrypted message and splits it into an array with two digits in
-  #   #each space
-  #   #maybe using a loop and slice
-  #   #loops through array and creates new array using decoder_hash
-  #   #returns gobilty_gook
+  #   # takes encrypted message and splits it into an array with two digits in
+  #   # each space
+  #   # maybe using a loop and slice
+  #   # loops through array and creates new array using decoder_hash
+  #   # returns gobilty_gook
   # end
 
   # def decrypt(message, p, q)
