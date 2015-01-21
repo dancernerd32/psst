@@ -1,3 +1,4 @@
+require "csv"
 class User < ActiveRecord::Base
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
@@ -12,6 +13,24 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+   def assign_secret_key
+     primes = []
+
+     CSV.foreach("primes.csv") do |row|
+       primes << row
+     end
+
+     length = primes.length - 1
+
+     key = [primes[rand(length)], primes[rand(length)]]
+
+     while key[0] == key[1]
+       key = [primes[rand(length)], primes[rand(length)]]
+     end
+
+     key
+   end
 
   attr_accessor :login
 
