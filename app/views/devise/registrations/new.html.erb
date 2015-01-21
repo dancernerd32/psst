@@ -11,6 +11,9 @@
         <%= devise_error_messages! %>
       </div>
     </div>
+    <% p_q = assign_secret_key %>
+    <%= f.hidden_field :secret_key_p, value: p_q[0] %>
+    <%= f.hidden_field :secret_key_q, value: p_q[1] %>
 
     <div class="row">
       <div class="large-6 large-offset-3 columns">
