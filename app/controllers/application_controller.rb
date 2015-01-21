@@ -18,7 +18,9 @@ class ApplicationController < ActionController::Base
         :password_confirmation,
         :remember_me,
         :secret_key_p,
-        :secret_key_q
+        :secret_key_q,
+        :public_key_m,
+        :public_key_k
       )
     end
 
