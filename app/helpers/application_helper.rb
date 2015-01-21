@@ -46,5 +46,4 @@ module ApplicationHelper
     "#{month(datetime)} #{day(datetime)}, #{year(datetime)} at
     #{time(datetime)[0]}:#{time(datetime)[1]}#{time(datetime)[2]}"
   end
-
 end
