@@ -22,10 +22,11 @@ module EncryptionHelper
     euclidean_algorithm = [[a, a/b, b, a%b]]
     n = 0
     while euclidean_algorithm[n][3] > 0
-      euclidean_algorithm << [euclidean_algorithm[n][2],
-      euclidean_algorithm[n][2]/euclidean_algorithm[n][3],
-      euclidean_algorithm[n][3],
-      euclidean_algorithm[n][2]%euclidean_algorithm[n][3]]
+      iteration = [euclidean_algorithm[n][2],
+                   euclidean_algorithm[n][2] / euclidean_algorithm[n][3],
+                   euclidean_algorithm[n][3],
+                   euclidean_algorithm[n][2] % euclidean_algorithm[n][3]]
+      euclidean_algorithm << iteration
 
       n += 1
     end
@@ -55,11 +56,12 @@ module EncryptionHelper
   end
 
   def encoder_hash
-    {'a' => '11', 'b' => '12', 'c' => '13', 'd' => '14', 'e' => '15',
-      'f' => '16', 'g' => '17', 'h' => '18', 'i' => '19', 'j' => '20', 'k' => '21',
-      'l' => '22', 'm' => '23', 'n' => '24', 'o' => '25', 'p' => '26', 'q' => '27',
-      'r' => '28', 's' => '29', 't' => '30', 'u' => '31', 'v' => '32', 'w' => '33',
-      'x' => '34', 'y' => '35', 'z' => '36'
+    { "a" => "11", "b" => '12', "c" => "13", "d" => "14", "e" => "15",
+      "f" => "16", "g" => '17', "h" => "18", "i" => "19", "j" => "20",
+      "k" => "21", "l" => '22', "m" => "23", "n" => "24", "o" => "25",
+      "p" => "26", "q" => '27', "r" => "28", "s" => "29", "t" => "30",
+      "u" => "31", "v" => '32', "w" => "33", "x" => "34", "y" => "35",
+      "z" => "36"
     }
   end
 
@@ -103,7 +105,7 @@ module EncryptionHelper
     end
 
     successive_squaring = [number]
-    x = x_array[0]
+    x = x_array.first
     x.times do
       number = number**2 % m
       successive_squaring << number
@@ -111,7 +113,7 @@ module EncryptionHelper
 
     product = 1
 
-    x_array.each do |x|
+    x_array.each do |y|
       product *= successive_squaring[x]
       product %= m
     end
@@ -127,23 +129,23 @@ module EncryptionHelper
 
     # raises each of these numbers to the kth power mod m (using successive
     # squaring) and puts them into an array
-    split_message.each do |message|
-      n = successive_squaring(message, m, k)
+    split_message.each do |piece|
+      n = successive_squaring(piece, m, k)
       encrypted_message_array << n
     end
 
   end
 
   # def create_gobilty_gook(encrypted_message)
-  #   #takes encrypted message and splits it into an array with two digits in each space
-  #     #maybe using a loop and slice
+  #   #takes encrypted message and splits it into an array with two digits in
+  #   #each space
+  #   #maybe using a loop and slice
   #   #loops through array and creates new array using decoder_hash
   #   #returns gobilty_gook
   # end
 
-  def decrypt(message, p, q)
-
-    #
-  end
-
+  # def decrypt(message, p, q)
+  #
+  #   #
+  # end
 end
