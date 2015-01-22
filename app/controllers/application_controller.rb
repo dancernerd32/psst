@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
         :email,
         :password,
         :password_confirmation,
-        :remember_me
+        :remember_me,
+        :secret_key_p,
+        :secret_key_q,
+        :public_key_m,
+        :public_key_k
       )
     end
 

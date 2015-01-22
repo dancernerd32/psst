@@ -7,10 +7,10 @@ feature "User removes a friend", %{
 } do
 
   # Acceptance Criteria
-  # [] I must be logged in
-  # [] I must have a confirmed friendship with the friend I wish to remove
-  # [] I can only remove my own friendships and inverse friendships
-  # [] When I successfully remove I friend I can see a success message
+  # [x] I must be logged in
+  # [x] I must have a confirmed friendship with the friend I wish to remove
+  # [x] I can only remove my own friendships and inverse friendships
+  # [x] When I successfully remove I friend I can see a success message
   # [] When I remove a friend their posts no longer show up on my home page
   # [] When I remove a friend, my posts no longer show up on their home page
   # *[] When I remove a friend, we can no longer send messages to each other
@@ -81,4 +81,14 @@ feature "User removes a friend", %{
       expect(page).not_to have_content "Remove #{user2.username} from friends"
     end
   end
+
+  scenario "Unauthenticated user" do
+    user = FactoryGirl.create(:user)
+
+    visit user_friendships_path(user)
+
+    expect(page).to have_content "You need to sign in"
+    expect(page).not_to have_content "Friends"
+  end
+
 end

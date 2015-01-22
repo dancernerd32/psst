@@ -7,12 +7,13 @@ feature "User adds a friend", %{
 } do
 
   # Acceptance Criteria
-  # [] I must be logged in
-  # [] I can add a friend by clicking a button next to their username
-  # [] When I add a friend I receive a message telling me I've done so
-  #    successfully, and my friend receives a notification in their mailbox
-  # [] I cannot send my friend a message until he or she confirms the friendship
-  # [] I cannot see my friend's public key until he or she confirms the
+  # [x] I must be logged in
+  # [x] I can add a friend by clicking a button next to their username
+  # [x] When I add a friend I receive a message telling me I've done so
+  #    successfully
+  # *[] When I add a friend, my friend receives a notification in their mailbox
+  # *[] I cannot send my friend a message until he/she confirms the friendship
+  # *[] I cannot see my friend's public key until he or she confirms the
   #    friendship
 
   context "authenticated user" do

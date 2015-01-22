@@ -7,14 +7,14 @@ feature "User views her friendships", %{
 } do
 
   # Acceptance Criteria
-  # [] I must be logged in
-  # [] I can only view my own friends
-  # [] I can click on the friends link in the nav bar to be taken to my friends
+  # [x] I must be logged in
+  # [x] I can only view my own friends
+  # [x] I can click on the friends link in the nav bar to be taken to my friends
   #    page
-  # [] I can see all of my confirmed friends and inverse friends
-  # [] I can see all of my friend requests
-  # [] I can see all of my pending friendships
-  # [] If I am not logged in, I am taken to the login page
+  # [x] I can see all of my confirmed friends and confirmed inverse friends
+  # [x] I can see all of my friend requests
+  # [x] I can see all of my pending friendships
+  # [x] If I am not logged in, I am taken to the login page
 
   context "Authenticated user" do
     before(:each) do
@@ -28,44 +28,80 @@ feature "User views her friendships", %{
       fill_in "Password", with: @user1.password
       click_on "Log in"
     end
+    scenario "User views friends" do
+      user = FactoryGirl.create(:user)
+
+      Friendship.create(user: @user1, friend: user, confirmed: true)
+
+      click_on "Friends"
+      expect(page).to have_content user.username
+    end
+
+    scenario "User views inverse friends" do
+      user = FactoryGirl.create(:user)
+
+      Friendship.create(user: user, friend: @user1, confirmed: true)
+
+      click_on "Friends"
+      expect(page).to have_content user.username
+    end
+
+    scenario "User views pending friendships" do
+      user = FactoryGirl.create(:user)
+
+      Friendship.create(user: @user1, friend: user, confirmed: false)
+
+      click_on "Friends"
+      expect(page).to have_content user.username
+    end
+
+    scenario "User views friend requests" do
+      user = FactoryGirl.create(:user)
+
+      Friendship.create(user: user, friend: @user1, confirmed: false)
+
+      click_on "Friends"
+      expect(page).to have_content user.username
+    end
 
     scenario "User views friends, pending friendships, and friend requests" do
-      user2 = FactoryGirl.create(:user)
-      user3 = FactoryGirl.create(:user)
-      user4 = FactoryGirl.create(:user)
-      user5 = FactoryGirl.create(:user)
-      user6 = FactoryGirl.create(:user)
+      users = FactoryGirl.create_list(:user, 4)
 
-      Friendship.create(user: user2, friend: @user1, confirmed: true)
-      Friendship.create(user: @user1, friend: user3, confirmed: true)
-      Friendship.create(user: user4, friend: @user1, confirmed: false)
-      Friendship.create(user: @user1, friend: user5, confirmed: false)
-      Friendship.create(user: user2, friend: user6, confirmed: true)
+      Friendship.create(user: users[0], friend: @user1, confirmed: true)
+      Friendship.create(user: @user1, friend: users[1], confirmed: true)
+      Friendship.create(user: users[2], friend: @user1, confirmed: false)
+      Friendship.create(user: @user1, friend: users[3], confirmed: false)
 
       click_on "Friends"
 
-      expect(page).to have_content user2.username
-      expect(page).to have_content user3.username
-      expect(page).to have_content user4.username
-      expect(page).to have_content user5.username
-      expect(page).not_to have_content user6.username
-
+      expect(page).to have_content users[0].username
+      expect(page).to have_content users[1].username
+      expect(page).to have_content users[2].username
+      expect(page).to have_content users[3].username
     end
 
     scenario "User has no friends, pending friendships, or friend requests" do
-      user2 = FactoryGirl.create(:user)
-      FactoryGirl.create(:user)
-      FactoryGirl.create(:user)
-      FactoryGirl.create(:user)
-      user6 = FactoryGirl.create(:user)
-
-      Friendship.create(user: user2, friend: user6, confirmed: true)
+      FactoryGirl.create_list(:user, 5)
 
       click_on "Friends"
 
       expect(page).to have_content "You have no friends on Psst! at this time"
       expect(page).to have_content "You have no friend requests at this time"
       expect(page).to have_content "You have no pending friends at this time"
+    end
+
+    scenario "User sees only her own friends on her friends page" do
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
+      Friendship.create(user: user1, friend: user2, confirmed: true)
+
+      click_on "Friends"
+
+      expect(page).to have_content "You have no friends on Psst! at this time"
+      expect(page).to have_content "You have no friend requests at this time"
+      expect(page).to have_content "You have no pending friends at this time"
+      expect(page).not_to have_content user1.username
+      expect(page).not_to have_content user2.username
     end
 
     scenario "User cannot view another user's friends" do

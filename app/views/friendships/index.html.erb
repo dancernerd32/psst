@@ -6,7 +6,7 @@
   </div>
 
 
-  <% if @friends && @friends != []%>
+  <% if !@friends.empty? %>
 
   <div id="friends">
     <ul>
@@ -49,7 +49,7 @@
     </div>
   </div>
 
-  <% if @friend_requests && @friend_requests != [] %>
+  <% if !@friend_requests.empty? %>
 
     <ul>
       <% @friend_requests.each do |friend| %>
@@ -84,7 +84,7 @@
   </div>
 
 
-  <% if @pending_friendships && @pending_friendships != [] %>
+  <% if !@pending_friendships.empty? %>
   <div id="pending_friends">
     <ul>
       <% @pending_friendships.each do |friend| %>
