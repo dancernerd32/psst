@@ -19,6 +19,11 @@ module EncryptionHelper
   end
 
   def euclidean_algorithm(a, b)
+    if b > a
+      placeholder_a = a
+      a = b
+      b = placeholder_a
+    end
     euclidean_algorithm = [[a, a / b, b, a % b]]
     n = 0
     while euclidean_algorithm[n][3] > 0
@@ -31,6 +36,20 @@ module EncryptionHelper
       n += 1
     end
     euclidean_algorithm
+  end
+
+  def extended_euclidean_algorithm(phi_of_m, k)
+    u_array = [0, 1]
+    q_array = []
+    euclidean_algorithm(phi_of_m, k).each do |iter|
+      q_array << iter[1]
+    end
+    q_array.pop
+
+    q_array.each_with_index do |q, i|
+      u_array << ((u_array[i] - u_array[i + 1] * q) % phi_of_m)
+    end
+    u_array.last
   end
 
   def gcd(a, b)
