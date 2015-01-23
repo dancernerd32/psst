@@ -16,11 +16,14 @@ end
 class MessagesController < ApplicationController
   include EncryptionHelper
   def new
+    authenticate_user!
+    @user = current_user
     @message = Message.new
     @recipient_options = confirmed_friends(current_user)
   end
 
   def create
+    authenticate_user!
     @recipient_options = confirmed_friends(current_user)
     @message = Message.new(message_params)
     if !@message.body.empty?
