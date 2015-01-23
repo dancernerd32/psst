@@ -1,3 +1,14 @@
+<% if @message.errors.any? %>
+<ul>
+  <% @message.errors.full_messages.each do |msg| %>
+  <div class="row">
+    <div class="large-6 large-offset-3 columns">
+      <li><%= msg %></li>
+    </div>
+  </div>
+  <% end %>
+</ul>
+<% end %>
 <div class="row">
   <div class="large-6 large-offset-3 columns">
     <%= form_for @message do |f| %>

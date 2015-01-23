@@ -153,6 +153,7 @@ module EncryptionHelper
       n = successive_squaring(piece, m, k)
       encrypted_message_array << n
     end
+    encrypted_message_array.join(", ")
   end
 
   # def create_gobilty_gook(encrypted_message)
