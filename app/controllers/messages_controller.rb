@@ -26,15 +26,18 @@ class MessagesController < ApplicationController
     authenticate_user!
     @recipient_options = confirmed_friends(current_user)
     @message = Message.new(message_params)
+
     if !@message.body.empty?
-      @message.body = encrypt(@message.body, @message.public_key_m, @message.public_key_k)
+      @message.body = encrypt(@message.body,
+                              @message.public_key_m,
+                              @message.public_key_k)
     end
     @message.sender = current_user
 
     if @message.public_key_m != @message.recipient.public_key_m ||
        @message.public_key_k != @message.recipient.public_key_k
-       flash[:error] = "Public keys must match recipient's public keys"
-       render :new
+      flash[:error] = "Public keys must match recipient's public keys"
+      render :new
     elsif @message.save
       flash[:notice] = "Your message has been sent."
       redirect_to root_path
@@ -42,12 +45,16 @@ class MessagesController < ApplicationController
       render :new
     end
   end
+
   def index
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:body, :recipient_id, :public_key_m, :public_key_k)
+    params.require(:message).permit(:body,
+                                    :recipient_id,
+                                    :public_key_m,
+                                    :public_key_k)
   end
 end

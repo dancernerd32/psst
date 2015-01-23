@@ -123,7 +123,7 @@ feature "User creates a new message", %{
       fill_in "Public key k", with: @user.public_key_k
       click_on "Send"
 
-      expect(page).to have_content "Public keys must match recipient's public keys"
+      expect(page).to have_content "Public keys must match recipient's public"
     end
 
     scenario "user cannot send message to a non-friend/inverse-friend" do
@@ -138,7 +138,7 @@ feature "User creates a new message", %{
       visit new_message_path
 
       expect(page).not_to have_select("message[recipient_id]",
-      options: [@user.username])
+                                      options: [@user.username])
     end
 
     scenario "user cannot send a message to herself" do
@@ -146,7 +146,7 @@ feature "User creates a new message", %{
       visit new_message_path
 
       expect(page).not_to have_select("message[recipient_id]",
-      options: [@user1.username])
+                                      options: [@user1.username])
     end
   end
 

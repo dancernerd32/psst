@@ -6,5 +6,4 @@ class Message < ActiveRecord::Base
   validates :public_key_m, presence: true
   validates :public_key_k, presence: true
   validates :recipient, presence: true
-
 end
