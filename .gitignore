@@ -13,3 +13,4 @@
 /tmp
 /coverage
 /primes.csv*
+.env
