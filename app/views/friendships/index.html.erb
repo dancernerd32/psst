@@ -14,8 +14,8 @@
       <div class="row">
         <div class="large-6 large-offset-3 columns">
           <li>
-            <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
-            #{friend[0].username}" %>
+            <%= link_to("#{ friend[0].first_name } #{ friend[0].last_name } -
+            #{friend[0].username}", user_path(friend)) %>
             <%= button_to "Remove #{friend[0].username} from friends",
                 user_friendship_path(@user, friend[1]),
                 method: :delete, class: "small button" %>
@@ -56,8 +56,8 @@
       <div class="row">
         <div class="large-6 large-offset-3 columns">
           <li>
-            <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
-            #{friend[0].username}" %>
+            <%= link_to("#{ friend[0].first_name } #{ friend[0].last_name } -
+            #{friend[0].username}", user_path(friend)) %>
             <%= form_tag user_friendship_path(@user, friend[1]),
                 method: :patch do %>
             <%= hidden_field_tag :confirmed, true %>
@@ -91,8 +91,8 @@
       <div class="row">
         <div class="large-6 large-offset-3 columns">
           <li>
-            <%= "#{ friend[0].first_name } #{ friend[0].last_name } -
-            #{friend[0].username}" %>
+            <%= link_to("#{ friend[0].first_name } #{ friend[0].last_name } -
+            #{friend[0].username}", user_path(friend)) %>
           </li>
         </div>
       </div>
