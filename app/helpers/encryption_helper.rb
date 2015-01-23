@@ -1,4 +1,5 @@
 require "csv"
+
 module EncryptionHelper
   def assign_secret_key
     primes = []
@@ -107,10 +108,12 @@ module EncryptionHelper
   def split_message(message, m)
     x = 0
     split_message = []
-    while x < encode(message).length
-      split_message << encode(message).slice(x, m - 1)
-      x += (m - 1)
+    length = m.to_s.length - 1
+    while x < message.length
+      split_message << message.slice(x, length)
+      x += (length)
     end
+    split_message
   end
 
   def successive_squaring(number, m, k)
@@ -121,10 +124,10 @@ module EncryptionHelper
       k -= 2**x
     end
 
-    successive_squaring = [number]
+    successive_squaring = [number.to_i]
     x = x_array.first
     x.times do
-      number = number**2 % m
+      number = number.to_i**2 % m
       successive_squaring << number
     end
 
@@ -150,6 +153,7 @@ module EncryptionHelper
       n = successive_squaring(piece, m, k)
       encrypted_message_array << n
     end
+    encrypted_message_array.join(", ")
   end
 
   # def create_gobilty_gook(encrypted_message)

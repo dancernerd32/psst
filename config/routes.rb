@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :friendships, only: [:index, :update, :destroy]
   end
 
+  resources :messages, only: [:new, :index, :create]
   resources :posts, only: [:index, :create]
 
   # The priority is based upon order of creation: first created -> highest priority.
