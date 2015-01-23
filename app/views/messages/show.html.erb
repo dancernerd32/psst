@@ -7,7 +7,9 @@
 <% else %>
   <div class="large-6 large-offset-3 columns">
     <div class="row">
-      <%= decrypt(@message, @p, @q, @m, @k) %>
+      <div style="word-wrap: break-word; width: 650px">
+        <%= decrypt(@message, @p, @q, @m, @k) %>
+      </div>
     </div>
   </div>
 <% end %>
