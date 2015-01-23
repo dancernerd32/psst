@@ -1,0 +1,21 @@
+<% if @messages %>
+    <% @messages.each do |message| %>
+    <div class="row">
+      <div class="large-6 large-offset-3 columns">
+        <div class="row">
+          <div class="post_header">
+            <div class="username"><%= message.sender.username %></div>
+            <div class="date"><%= format_date(message.created_at.to_s) %></div>
+          </div>
+        </div>
+        <div class="row">
+          @<%= message.recipient.username %>
+          <%= message.body %>
+        </div>
+        <div class="row">
+          <%= link_to("Decrypt", message_path(message)) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

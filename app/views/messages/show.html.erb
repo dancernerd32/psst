@@ -1,0 +1,13 @@
+<% if @user != @recipient %>
+  <div class="large-6 large-offset-3 columns">
+    <div class="row">
+      <p>You are not authorized to view this page</p>
+    </div>
+  </div>
+<% else %>
+  <div class="large-6 large-offset-3 columns">
+    <div class="row">
+      <%= decrypt(@message, @p, @q, @m, @k) %>
+    </div>
+  </div>
+<% end %>

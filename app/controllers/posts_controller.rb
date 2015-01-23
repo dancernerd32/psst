@@ -1,31 +1,24 @@
-require "datetime"
-
-def friends_post?(post)
-  Friendship.where(user: current_user, confirmed: true).each do |friendship|
-    if post.user == friendship.friend
-      return true
-    end
-  end
-  Friendship.where(friend: current_user, confirmed: true).each do |friendship|
-    if post.user == friendship.user
-      return true
-    end
-  end
-  false
-end
-
 class PostsController < ApplicationController
+  include PostHelper
   def index
     if !current_user
       redirect_to new_user_session_path
     else
       @post = Post.new
       @posts = []
+      @messages = []
       Post.all.order(:created_at).reverse_order.each do |post|
         if friends_post?(post)
           @posts << post
         elsif post.user == current_user
           @posts << post
+        end
+      end
+      Message.all.order(:created_at).reverse_order.each do |message|
+        if friends_message?(message)
+          @messages << message
+        elsif message.sender == current_user
+          @messages << message
         end
       end
     end

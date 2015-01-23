@@ -14,3 +14,15 @@
     <% end %>
   </div>
 </div>
+
+<div class="row">
+  <div class="large-3 columns">
+    <% if current_user.friends.include?(@user) ||
+      current_user.inverse_friends.include?(@user) ||
+      @user == current_user %>
+      <h3>Public Keys</h3>
+      <p>m: <%= @user.public_key_m %></p>
+      <p>k: <%= @user.public_key_k %></p>
+    <% end %>
+  </div>
+</div>

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
            dependent: :destroy
   has_many :inverse_friends, through: :inverse_friendships, source: :user
   has_many :posts, dependent: :destroy
+  has_many :messages, foreign_key: "sender_id"
+  has_many :messages, foreign_key: "recipient_id"
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
