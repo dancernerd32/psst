@@ -27,6 +27,23 @@
 </div>
 <div class="row">
 </div>
+<% if @messages %>
+<% @messages.each do |message| %>
+<div class="row">
+  <div class="large-6 large-offset-3 columns">
+    <div class="row">
+      <div class="post_header">
+        <div class="username"><%= message.sender.username %></div>
+        <div class="date"><%= format_date(message.created_at.to_s) %></div>
+      </div>
+    </div>
+    <div class="row">
+      <%= message.body %>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>
 <% if @posts %>
   <% @posts.each do |post| %>
     <div class="row">
