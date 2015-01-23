@@ -22,7 +22,7 @@ feature "User views encrypted messages", %{
     @user.save
 
     @friend = FactoryGirl.create(:user)
-    Friendship.create(user: @user, friend: @friend, confirmed: true )
+    Friendship.create(user: @user, friend: @friend, confirmed: true)
 
     message = "This message will be over one-hundred characters
     long if I just keep typing until it reaches at least one-hundred
@@ -46,15 +46,15 @@ feature "User views encrypted messages", %{
   end
 
   scenario "User views a friend's encrypted message in feed" do
-      @user1 = FactoryGirl.create(:user)
+    @user1 = FactoryGirl.create(:user)
 
-      visit root_path
+    visit root_path
 
-      click_on "Sign In"
+    click_on "Sign In"
 
-      fill_in "Login", with: @user1.email
-      fill_in "Password", with: @user1.password
-      click_on "Log in"
+    fill_in "Login", with: @user1.email
+    fill_in "Password", with: @user1.password
+    click_on "Log in"
 
     Friendship.create(user: @user1, friend: @friend, confirmed: true)
 
@@ -68,6 +68,7 @@ feature "User views encrypted messages", %{
     25410511871589372"
     expect(page).to have_content @user.username
   end
+
   scenario "User views inverse-friend's encrypted message in feed" do
     @user1 = FactoryGirl.create(:user)
 
@@ -91,6 +92,7 @@ feature "User views encrypted messages", %{
     25410511871589372"
     expect(page).to have_content @user.username
   end
+
   scenario "User views her own encrypted message in feed" do
     visit root_path
 
@@ -110,6 +112,7 @@ feature "User views encrypted messages", %{
     25410511871589372"
     expect(page).to have_content @user.username
   end
+
   scenario "User views her own encrypted message in mailbox" do
     visit root_path
 
@@ -130,6 +133,7 @@ feature "User views encrypted messages", %{
     expect(page).to have_content @user.username
     expect(page).to have_content "Decrypt"
   end
+
   scenario "User cannot view friend's encrypted message in mailbox" do
     @user1 = FactoryGirl.create(:user)
 
@@ -152,6 +156,7 @@ feature "User views encrypted messages", %{
     13819283828387603, 15802654134488562, 21826030828151967,
     25410511871589372"
   end
+
   scenario "User cannot view unconfirmed friend's encrypted message in feed" do
     @user1 = FactoryGirl.create(:user)
 
@@ -175,6 +180,7 @@ feature "User views encrypted messages", %{
     25410511871589372"
     expect(page).not_to have_content @user.username
   end
+
   scenario "User cannot view non-friend's encrypted message" do
     @user1 = FactoryGirl.create(:user)
 
@@ -196,5 +202,4 @@ feature "User views encrypted messages", %{
     25410511871589372"
     expect(page).not_to have_content @user.username
   end
-
 end
