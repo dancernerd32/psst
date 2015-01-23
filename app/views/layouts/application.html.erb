@@ -20,6 +20,7 @@
           <li><%= link_to "Feed", posts_path %></li>
           <li><%= link_to "Friends", user_friendships_path(current_user) %></li>
           <li><%= link_to "Secret Messages", new_message_path %></li>
+          <li><%= link_to "Mailbox", user_messages_path(current_user) %></li>
         </ul>
       <% end %>
       <ul class="right">

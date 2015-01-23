@@ -45,8 +45,7 @@ feature "User views encrypted messages", %{
     click_on "Sign Out"
   end
 
-  context "authenticated user" do
-    before(:each) do
+  scenario "User views a friend's encrypted message in feed" do
       @user1 = FactoryGirl.create(:user)
 
       visit root_path
@@ -56,23 +55,146 @@ feature "User views encrypted messages", %{
       fill_in "Login", with: @user1.email
       fill_in "Password", with: @user1.password
       click_on "Log in"
-    end
 
-    scenario "User views a friend's encrypted messages" do
+    Friendship.create(user: @user1, friend: @friend, confirmed: true)
 
-      Friendship.create(user: @user1, friend: @friend, confirmed: true)
+    click_on "Feed"
 
-      click_on "Feed"
-
-      expect(page).to have_content "13987979245948945, 6597549169661591,
-      19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
-      19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
-      2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
-      13819283828387603, 15802654134488562, 21826030828151967,
-      25410511871589372"
-      expect(page).to have_content @user.username
-      
-    end
-
+    expect(page).to have_content "13987979245948945, 6597549169661591,
+    19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
+    19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
+    2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
+    13819283828387603, 15802654134488562, 21826030828151967,
+    25410511871589372"
+    expect(page).to have_content @user.username
   end
+  scenario "User views inverse-friend's encrypted message in feed" do
+    @user1 = FactoryGirl.create(:user)
+
+    visit root_path
+
+    click_on "Sign In"
+
+    fill_in "Login", with: @user1.email
+    fill_in "Password", with: @user1.password
+    click_on "Log in"
+
+    Friendship.create(user: @friend, friend: @user1, confirmed: true)
+
+    click_on "Feed"
+
+    expect(page).to have_content "13987979245948945, 6597549169661591,
+    19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
+    19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
+    2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
+    13819283828387603, 15802654134488562, 21826030828151967,
+    25410511871589372"
+    expect(page).to have_content @user.username
+  end
+  scenario "User views her own encrypted message in feed" do
+    visit root_path
+
+    click_on "Sign In"
+
+    fill_in "Login", with: @user.email
+    fill_in "Password", with: @user.password
+    click_on "Log in"
+
+    click_on "Feed"
+
+    expect(page).to have_content "13987979245948945, 6597549169661591,
+    19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
+    19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
+    2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
+    13819283828387603, 15802654134488562, 21826030828151967,
+    25410511871589372"
+    expect(page).to have_content @user.username
+  end
+  scenario "User views her own encrypted message in mailbox" do
+    visit root_path
+
+    click_on "Sign In"
+
+    fill_in "Login", with: @user.email
+    fill_in "Password", with: @user.password
+    click_on "Log in"
+
+    click_on "Mailbox"
+
+    expect(page).to have_content "13987979245948945, 6597549169661591,
+    19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
+    19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
+    2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
+    13819283828387603, 15802654134488562, 21826030828151967,
+    25410511871589372"
+    expect(page).to have_content @user.username
+    expect(page).to have_content "Decrypt"
+  end
+  scenario "User cannot view friend's encrypted message in mailbox" do
+    @user1 = FactoryGirl.create(:user)
+
+    visit root_path
+
+    click_on "Sign In"
+
+    fill_in "Login", with: @user1.email
+    fill_in "Password", with: @user1.password
+    click_on "Log in"
+
+    Friendship.create(user: @user1, friend: @friend, confirmed: true)
+
+    click_on "Mailbox"
+
+    expect(page).not_to have_content "13987979245948945, 6597549169661591,
+    19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
+    19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
+    2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
+    13819283828387603, 15802654134488562, 21826030828151967,
+    25410511871589372"
+  end
+  scenario "User cannot view unconfirmed friend's encrypted message in feed" do
+    @user1 = FactoryGirl.create(:user)
+
+    visit root_path
+
+    click_on "Sign In"
+
+    fill_in "Login", with: @user1.email
+    fill_in "Password", with: @user1.password
+    click_on "Log in"
+
+    Friendship.create(user: @user1, friend: @friend, confirmed: false)
+
+    click_on "Feed"
+
+    expect(page).not_to have_content "13987979245948945, 6597549169661591,
+    19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
+    19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
+    2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
+    13819283828387603, 15802654134488562, 21826030828151967,
+    25410511871589372"
+    expect(page).not_to have_content @user.username
+  end
+  scenario "User cannot view non-friend's encrypted message" do
+    @user1 = FactoryGirl.create(:user)
+
+    visit root_path
+
+    click_on "Sign In"
+
+    fill_in "Login", with: @user1.email
+    fill_in "Password", with: @user1.password
+    click_on "Log in"
+
+    click_on "Feed"
+
+    expect(page).not_to have_content "13987979245948945, 6597549169661591,
+    19501227974711707, 15878093936820780, 17120061003915500, 1674708906257554,
+    19207038272600258, 5842957003381056, 9179485880262553, 19536289285048631,
+    2786926719715928, 11025250514274376, 17197200100095568, 29250927161084515,
+    13819283828387603, 15802654134488562, 21826030828151967,
+    25410511871589372"
+    expect(page).not_to have_content @user.username
+  end
+
 end
