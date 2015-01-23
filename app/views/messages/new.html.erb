@@ -3,7 +3,7 @@
     <%= form_for @message do |f| %>
     <div class="field", id="recipient">
       <%= f.label :recipient %>
-      <%= f.collection_select(:recipient_id, User.all, :id, :username) %>
+      <%= f.collection_select(:recipient_id, @recipient_options, :id, :username) %>
     </div>
     <div class="field">
       <div class = invisible>

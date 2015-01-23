@@ -3,7 +3,13 @@ class MessagesController < ApplicationController
   include EncryptionHelper
   def new
     @message = Message.new
-    # @recipient_options = User.friends.map{|u| [ u.username, u.id ] }
+    @recipient_options = []
+    current_user.friends.each do |friend|
+      @recipient_options << friend
+    end
+    current_user.inverse_friends.each do |friend|
+      @recipient_options << friend
+    end
   end
 
   def create

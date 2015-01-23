@@ -21,9 +21,6 @@ class PostsController < ApplicationController
           @messages << message
         end
       end
-      # @posts.sort_by! do |post|
-      #   post[:created_at]
-      # end
     end
   end
 

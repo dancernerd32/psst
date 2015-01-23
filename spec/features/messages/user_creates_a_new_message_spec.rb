@@ -93,7 +93,6 @@ feature "User creates a new message", %{
         "1219302225241715",
         "28"]
 
-
     end
     scenario "user sends a message to an inverse friend"
     scenario "user doesn't specify a friend"
@@ -101,10 +100,12 @@ feature "User creates a new message", %{
     scenario "user cannot send message to a non-friend/inverse-friend" do
       visit new_message_path
 
-      expect(page).not_to have_select("message[recipient_id]", @user.username)
+      expect(page).not_to have_select("message[recipient_id]",
+                                      options: [@user.username])
     end
     scenario "user cannot send a message to an unconfirmed friend or
     inverse-friend"
+    scenario "user cannot send a message to herself"
   end
   scenario "unauthenticated user"
 end
