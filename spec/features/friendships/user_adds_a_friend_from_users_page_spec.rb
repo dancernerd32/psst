@@ -40,8 +40,7 @@ feature "User adds a friend", %{
       click_on "Add #{user2.username} as a friend"
 
       expect(page).to have_content "You have successfully added #{
-      user2.username} as a friend.  We'll let you know when they confirm your
-      friendship"
+      user2.username} as a friend."
 
       visit users_path
 
@@ -58,8 +57,7 @@ feature "User adds a friend", %{
       click_on "Add friend"
 
       expect(page).to have_content "You have successfully added #{
-      user2.username} as a friend.  We'll let you know when they confirm your
-      friendship"
+      user2.username} as a friend."
     end
 
     scenario "User cannot add a friend who has already been added" do
