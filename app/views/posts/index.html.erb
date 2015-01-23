@@ -17,10 +17,10 @@
         <div class = invisible>
           <%= f.label :body %>
         </div>
-        <%= f.text_area :body %>
+        <%= f.text_area :body, placeholder: "Say something" %>
       </div>
       <div>
-        <%= f.submit "Submit" %>
+        <%= f.submit "Submit", class: "small button"%>
       </div>
     <% end %>
   </div>
@@ -33,7 +33,9 @@
   <div class="large-6 large-offset-3 columns">
     <div class="row">
       <div class="post_header">
-        <div class="username"><%= message.sender.username %></div>
+        <div class="username">
+          <%= link_to(message.sender.username, user_path(message.sender)) %>
+        </div>
         <div class="date"><%= format_date(message.created_at.to_s) %></div>
       </div>
     </div>
