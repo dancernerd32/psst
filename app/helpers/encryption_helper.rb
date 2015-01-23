@@ -164,8 +164,28 @@ module EncryptionHelper
   #   # returns gobilty_gook
   # end
 
-  # def decrypt(message, p, q)
-  #
-  #   #
-  # end
+  def decrypt(message, p, q, m, k)
+    message = message.split(", ")
+    phi_of_m = (p - 1) * (q - 1)
+    u = extended_euclidean_algorithm(phi_of_m, k)
+
+    decrypted = []
+    message.each do |piece|
+      decrypted << successive_squaring(piece.to_i, m, u)
+    end
+
+    decrypted_string = decrypted.join("")
+    x = 0
+    split_message = []
+    while x < decrypted_string.length
+      split_message << decrypted_string.slice(x, 2)
+      x += 2
+    end
+
+    decoded_message = []
+    split_message.each do |number|
+      decoded_message << decoder_hash[number]
+    end
+    decoded_message.join("")
+  end
 end
