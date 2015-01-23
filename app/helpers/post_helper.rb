@@ -12,7 +12,7 @@ module PostHelper
     end
     false
   end
-  
+
   def friends_message?(message)
     Friendship.where(user: current_user, confirmed: true).each do |friendship|
       if message.sender == friendship.friend
