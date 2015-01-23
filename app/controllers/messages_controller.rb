@@ -47,6 +47,16 @@ class MessagesController < ApplicationController
   end
 
   def index
+    @user = current_user
+    @messages = []
+    Message.all.order(:created_at).reverse_order.each do |message|
+      if message.recipient == current_user
+        @messages << message
+      end
+    end
+  end
+
+  def show
   end
 
   private

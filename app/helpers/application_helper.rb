@@ -32,7 +32,11 @@ module ApplicationHelper
   def time(datetime)
     split_time = split(datetime)[2].split(" ")[1].split(":")
     time = []
-    time << split_time[0].to_i % 12
+    hour = split_time[0].to_i % 12
+    if hour == 0
+      hour = 12
+    end
+    time << hour
     time << split_time[1]
     if split_time[0].to_i <= 12
       time << "am"

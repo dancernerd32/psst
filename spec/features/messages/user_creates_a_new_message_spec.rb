@@ -1,5 +1,4 @@
 require "rails_helper"
-require "encryption_helper"
 
 feature "User creates a new message", %{
   As a user
