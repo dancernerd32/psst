@@ -1,10 +1,17 @@
+<div class="row">
+  <div class="large-3 columns">
+    <h3>Secret Keys</h3>
+    <p>p: <%= @user.secret_key_p %></p>
+    <p>q: <%= @user.secret_key_q %></p>
+  </div>
+</div>
 <% if @messages %>
     <% @messages.each do |message| %>
     <div class="row">
       <div class="large-6 large-offset-3 columns">
         <div class="row">
-          <div class="post_header">
-            <div class="username"><%= message.sender.username %></div>
+          <div class="post_header clearfix">
+            <div class="username"><p><%= message.sender.username %></p></div>
             <div class="date"><%= format_date(message.created_at.to_s) %></div>
           </div>
         </div>
@@ -13,7 +20,17 @@
           <%= message.body %>
         </div>
         <div class="row">
-          <%= link_to("Decrypt", message_path(message)) %>
+          <%= form_tag(message_path(message), method: :get) do %>
+            <div class="field">
+              <%= label_tag (:secret_key_p) %>
+              <%= text_field_tag(:secret_key_p) %>
+            </div>
+            <div class="field">
+              <%= label_tag (:secret_key_q) %>
+              <%= text_field_tag(:secret_key_q) %>
+            </div>
+            <%= submit_tag "Decrypt", class: "small button" %>
+          <% end %>
         </div>
       </div>
     </div>

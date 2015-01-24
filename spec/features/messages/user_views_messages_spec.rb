@@ -12,6 +12,7 @@ feature "User views encrypted messages", %{
   # [] I can see the name of the recipient
   # [] I can see the date and time the message is posted
   # [] If the recipient is me, I can see the message in my mailbox
+  # [] I can see my secret key in my mailbox
   # [] I can decrypt the message in my mailbox
   before(:each) do
     @user = FactoryGirl.create(:user)
@@ -133,6 +134,8 @@ feature "User views encrypted messages", %{
 
     click_on "Mailbox"
 
+    expect(page).to have_content @user.secret_key_p
+    expect(page).to have_content @user.secret_key_q
     expect(page).to have_content "13987979245948945, 6597549169661591,
                                   19501227974711707, 15878093936820780,
                                   17120061003915500, 1674708906257554,
@@ -143,7 +146,7 @@ feature "User views encrypted messages", %{
                                   13819283828387603, 15802654134488562,
                                   21826030828151967, 25410511871589372"
     expect(page).to have_content @user.username
-    expect(page).to have_content "Decrypt"
+    expect(page).to have_button "Decrypt"
   end
 
   scenario "User cannot view friend's encrypted message in mailbox" do
