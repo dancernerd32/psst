@@ -50,6 +50,7 @@ class MessagesController < ApplicationController
   end
 
   def index
+    authenticate_user!
     @user = current_user
     @secret_key_p = current_user.secret_key_p
     @secret_key_q = current_user.secret_key_q
@@ -62,6 +63,7 @@ class MessagesController < ApplicationController
   end
 
   def show
+    authenticate_user!
     message = Message.find(params[:id])
     @message = message.body
     @p = message.recipient.secret_key_p
@@ -82,11 +84,16 @@ class MessagesController < ApplicationController
   end
 
   def require_secret_keys
-    if !params[:secret_key_p].to_i == current_user.secret_key_p ||
-       !params[:secret_key_q].to_i == current_user.secret_key_q
+    if current_user
+      @user = current_user
+      if (!params[:secret_key_p] ||
+         !params[:secret_key_q] ||
+         params[:secret_key_p].to_i != current_user.secret_key_p ||
+         params[:secret_key_q].to_i != current_user.secret_key_q)
 
-      flash[:error] = "Secret keys are required"
-      render :index
+        flash[:error] = "Secret keys are required"
+        render :index
+      end
     end
   end
 end

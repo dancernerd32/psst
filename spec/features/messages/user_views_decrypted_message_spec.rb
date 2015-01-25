@@ -64,9 +64,22 @@ feature "User views decrypted message", %{
     expect(page).to have_content "thismessagewillbeoveronehundredcharacterslong"
   end
 
+  scenario "User enters incorrect secret key" do
+    click_on "Mailbox"
+    fill_in "Secret key p", with: @user.secret_key_p
+    fill_in "Secret key q", with: @user.secret_key_p
+    click_on "Decrypt"
+
+    expect(page).not_to have_content "thismessagewillbeoveronehundredcharacterslong"
+  end
+
+
   scenario "Non-recipient user cannot view decrypted message" do
     message = Message.find_by(recipient: @user)
     user = FactoryGirl.create(:user)
+    user.secret_key_p = 1234
+    user.secret_key_q = 12345
+    user.save
     click_on "Sign Out"
     click_on "Sign In"
 
