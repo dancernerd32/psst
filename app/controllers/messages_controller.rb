@@ -86,10 +86,18 @@ class MessagesController < ApplicationController
   def require_secret_keys
     if current_user
       @user = current_user
+      @secret_key_p = current_user.secret_key_p
+      @secret_key_q = current_user.secret_key_q
+      @messages = []
+      Message.all.order(:created_at).reverse_order.each do |message|
+        if message.recipient == current_user
+          @messages << message
+        end
+      end
       if (!params[:secret_key_p] ||
          !params[:secret_key_q] ||
-         params[:secret_key_p].to_i != current_user.secret_key_p ||
-         params[:secret_key_q].to_i != current_user.secret_key_q)
+         params[:secret_key_p].to_i != @secret_key_p ||
+         params[:secret_key_q].to_i != @secret_key_q)
 
         flash[:error] = "Secret keys are required"
         render :index
