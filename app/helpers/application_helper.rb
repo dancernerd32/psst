@@ -38,7 +38,7 @@ module ApplicationHelper
     end
     time << hour
     time << split_time[1]
-    if split_time[0].to_i <= 12
+    if split_time[0].to_i < 12
       time << "am"
     else
       time << "pm"
