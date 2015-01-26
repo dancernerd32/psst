@@ -5,10 +5,26 @@
     </div>
   </div>
 <% else %>
+<div class="row">
+  <div class="large-12 columns">
+    <div class="panel">
+      <h1>Your Secret Message Revealed</h1>
+    </div>
+  </div>
+</div>
   <div class="large-6 large-offset-3 columns">
     <div class="row">
-      <div style="word-wrap: break-word; width: 650px">
-        <%= decrypt(@message, @p, @q, @m, @k) %>
+      <div class="post_header clearfix">
+        <div class="username">
+          <%= link_to(@message.sender.username, user_path(@message.sender)) %>
+        </div>
+        <div class="date"><%= format_date(@message.created_at.to_s) %></div>
+      </div>
+    </div>
+
+      <div class="text_body", style="word-wrap: break-word; width: 650px">
+        @<%= @message.recipient.username %>
+        <%= decrypt(@message_body, @p, @q, @m, @k) %>
       </div>
     </div>
   </div>

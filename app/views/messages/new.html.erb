@@ -1,3 +1,10 @@
+<div class="row">
+  <div class="large-12 columns">
+    <div class="panel">
+      <h1>Secret Message Creator</h1>
+    </div>
+  </div>
+</div>
 <% if @message.errors.any? %>
 <ul>
   <% @message.errors.full_messages.each do |msg| %>
@@ -20,18 +27,22 @@
       <div class = invisible>
         <%= f.label :body %>
       </div>
-      <%= f.text_area :body %>
+      <%= f.text_area :body, placeholder: "Enter your secret message (must be at least 100 characters)" %>
     </div>
     <div class="field">
       <%= f.label :public_key_m %>
-      <%= f.text_field :public_key_m %>
+      <%= f.text_field :public_key_m, placeholder: "Find this on your friend's profile page" %>
     </div>
     <div class="field">
       <%= f.label :public_key_k %>
-      <%= f.text_field :public_key_k %>
+      <%= f.text_field :public_key_k, placeholder: "Find this on you friend's profile page" %>
     </div>
     <div>
-      <%= f.submit "Send" %>
+      <p>Please do not include confidential information.
+         Encryption is for educational purposes, and is not secure.</p>
+    </div>
+    <div>
+      <%= f.submit "Send", class: "small button" %>
     </div>
     <% end %>
   </div>

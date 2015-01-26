@@ -28,7 +28,23 @@
    float: left;
  }
 .post_header{
-  color: red;
-  background-color: black;
-  border: 1px black solid;
+  color: white;
+  background-color: #393636;
+  padding: 10px 10px 2px 5px;
+  font-family: 'Playfair Display';
+  font-size: 14pt;
+}
+.post_header a{
+  color: white;
+}
+.post_header a:hover{
+  color: teal;
+}
+.text_body{
+  font-family: 'Roboto Condensed';
+  padding: 10px;
+
+}
+.panel{
+  
 }

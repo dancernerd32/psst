@@ -3,6 +3,8 @@
 <head>
   <title>Psst</title>
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link href='http://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -20,11 +22,12 @@
           <li><%= link_to "Feed", posts_path %></li>
           <li><%= link_to "Friends", user_friendships_path(current_user) %></li>
           <li><%= link_to "Secret Messages", new_message_path %></li>
-          <li><%= link_to "Mailbox", user_messages_path(current_user) %></li>
+          <li><%= link_to "Mailbox", messages_path %></li>
         </ul>
       <% end %>
       <ul class="right">
         <%- if current_user -%>
+          <li><%= link_to current_user.username, user_path(current_user) %></li>
           <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
         <%- else -%>
           <li><%= link_to 'Sign Up', new_user_registration_path %></li>
