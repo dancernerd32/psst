@@ -70,9 +70,9 @@ feature "User views decrypted message", %{
     fill_in "Secret key q", with: @user.secret_key_p
     click_on "Decrypt"
 
-    expect(page).not_to have_content "thismessagewillbeoveronehundredcharacterslong"
+    expect(page).not_to have_content "
+    thismessagewillbeoveronehundredcharacterslong"
   end
-
 
   scenario "Non-recipient user cannot view decrypted message" do
     message = Message.find_by(recipient: @user)

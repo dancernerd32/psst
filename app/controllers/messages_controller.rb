@@ -94,10 +94,10 @@ class MessagesController < ApplicationController
           @messages << message
         end
       end
-      if (!params[:secret_key_p] ||
+      if !params[:secret_key_p] ||
          !params[:secret_key_q] ||
          params[:secret_key_p].to_i != @secret_key_p ||
-         params[:secret_key_q].to_i != @secret_key_q)
+         params[:secret_key_q].to_i != @secret_key_q
 
         flash[:error] = "Secret keys are required"
         render :index
