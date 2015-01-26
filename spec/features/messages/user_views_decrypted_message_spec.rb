@@ -8,6 +8,8 @@ feature "User views decrypted message", %{
 
   # Acceptance Criteria
   # [] I must be logged in
+  # [] I must enter my secret key
+  # [] The secret key I enter must match my secret key
   # [] I can only view messages of which I am the recipient.
   # [] When I click on decrypt, I am taken to the decrypted message page
   # [] The message I view is the message that was written to me,
@@ -55,14 +57,29 @@ feature "User views decrypted message", %{
 
   scenario "User views her decrypted message" do
     click_on "Mailbox"
+    fill_in "Secret key p", with: @user.secret_key_p
+    fill_in "Secret key q", with: @user.secret_key_q
     click_on "Decrypt"
 
     expect(page).to have_content "thismessagewillbeoveronehundredcharacterslong"
   end
 
+  scenario "User enters incorrect secret key" do
+    click_on "Mailbox"
+    fill_in "Secret key p", with: @user.secret_key_p
+    fill_in "Secret key q", with: @user.secret_key_p
+    click_on "Decrypt"
+
+    expect(page).not_to have_content "
+    thismessagewillbeoveronehundredcharacterslong"
+  end
+
   scenario "Non-recipient user cannot view decrypted message" do
     message = Message.find_by(recipient: @user)
     user = FactoryGirl.create(:user)
+    user.secret_key_p = 1234
+    user.secret_key_q = 12345
+    user.save
     click_on "Sign Out"
     click_on "Sign In"
 
