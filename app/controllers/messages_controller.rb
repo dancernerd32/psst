@@ -64,14 +64,14 @@ class MessagesController < ApplicationController
 
   def show
     authenticate_user!
-    message = Message.find(params[:id])
-    @message = message.body
-    @p = message.recipient.secret_key_p
-    @q = message.recipient.secret_key_q
-    @m = message.recipient.public_key_m
-    @k = message.recipient.public_key_k
+    @message = Message.find(params[:id])
+    @message_body = @message.body
+    @p = @message.recipient.secret_key_p
+    @q = @message.recipient.secret_key_q
+    @m = @message.recipient.public_key_m
+    @k = @message.recipient.public_key_k
     @user = current_user
-    @recipient = message.recipient
+    @recipient = @message.recipient
   end
 
   private
