@@ -1,28 +1,12 @@
 == README
+http://pssst-staging.herokuapp.com
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Psst! is a social networking site with a twist. Users can make friends and
+create both public posts and secret messages. Secret messages are encrypted
+posts, directed at a specific user. Anyone who can see your posts can see the
+secret messages you send in their encrypted state, but only the intended viewer
+can decrypt and read them. The site uses RSA public key encryption.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+RSA encryption captured my interest when I learned about it in my number theory
+class, and when thinking about things I wanted to program, it came to mind.
+Coding the encryption and decryption algorithms was an exciting challenge.
