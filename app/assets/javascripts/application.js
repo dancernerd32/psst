@@ -20,15 +20,22 @@ $(function(){
   console.log("loaded...");
 });
 
-var area = document.getElementById("message_text");
+var messageArea = document.getElementById("message_text");
 var message = document.getElementById("characters");
 var minLength = 100;
 var checkLength = function() {
-  if(area.value.length < minLength) {
-    characters.innerHTML = (minLength-area.value.length) + " more characters needed";
+  if(messageArea.value.length < minLength) {
+    message.innerHTML = (minLength-messageArea.value.length) + " more characters needed";
   }
   else {
-    characters.innerHTML = "0 more characters needed. Feel free to keep adding to your message.";
+    message.innerHTML = "0 more characters needed. Feel free to keep adding to your message.";
   }
 }
 setInterval(checkLength, 10);
+
+document.getElementById('message_text').onkeypress=function(e){
+  if(("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ").indexOf(String.fromCharCode(e.keyCode))===-1){
+    e.preventDefault();
+    return false;
+  }
+}
