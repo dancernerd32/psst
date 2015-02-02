@@ -30,11 +30,14 @@ class MessagesController < ApplicationController
     @recipient_options = confirmed_friends(current_user)
     @message = Message.new(message_params)
 
-    if !@message.body.empty?
-      @message.body = encrypt(@message.body,
-                              @message.public_key_m,
-                              @message.public_key_k)
+    if @message.valid? &&
+       @message.public_key_m == @message.recipient.public_key_m &&
+       @message.public_key_k == @message.recipient.public_key_k
+       @message.body = encrypt(@message.body,
+                               @message.public_key_m,
+                               @message.public_key_k)
     end
+
     @message.sender = current_user
 
     if @message.public_key_m != @message.recipient.public_key_m ||
