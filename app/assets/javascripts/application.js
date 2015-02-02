@@ -19,6 +19,16 @@ $(function(){ $(document).foundation(); });
 $(function(){
   console.log("loaded...");
 });
-// $("#button-1").on('click', function(event){
-//   alert('hello');
-// });
+
+var area = document.getElementById("message_text");
+var message = document.getElementById("characters");
+var minLength = 100;
+var checkLength = function() {
+  if(area.value.length < minLength) {
+    characters.innerHTML = (minLength-area.value.length) + " more characters needed";
+  }
+  else {
+    characters.innerHTML = "0 more characters needed. Feel free to keep adding to your message.";
+  }
+}
+setInterval(checkLength, 300);
