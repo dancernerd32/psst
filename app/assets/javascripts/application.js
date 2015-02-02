@@ -31,4 +31,4 @@ var checkLength = function() {
     characters.innerHTML = "0 more characters needed. Feel free to keep adding to your message.";
   }
 }
-setInterval(checkLength, 300);
+setInterval(checkLength, 10);
