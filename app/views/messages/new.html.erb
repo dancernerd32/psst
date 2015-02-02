@@ -42,7 +42,8 @@
          Encryption is for educational purposes, and is not secure.</p>
     </div>
     <div>
-      <%= f.submit "Send", class: "small button" %>
+      <%= f.submit "Send", class: "small button",
+          onclick: "return confirm('This message contains no confidential info.' )" %>
     </div>
     <% end %>
   </div>

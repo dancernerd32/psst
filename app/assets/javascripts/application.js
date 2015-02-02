@@ -16,3 +16,9 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+$(function(){
+  console.log("loaded...");
+});
+// $("#button-1").on('click', function(event){
+//   alert('hello');
+// });
