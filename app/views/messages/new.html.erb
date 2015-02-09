@@ -27,7 +27,8 @@
       <div class = invisible>
         <%= f.label :body %>
       </div>
-      <%= f.text_area :body, placeholder: "Enter your secret message (must be at least 100 characters)" %>
+      <%= f.text_area :body, id: "message_text", placeholder: "Enter your secret message (must be at least 100 characters)" %>
+      <p id="characters"> </p>
     </div>
     <div class="field">
       <%= f.label :public_key_m %>
@@ -42,7 +43,8 @@
          Encryption is for educational purposes, and is not secure.</p>
     </div>
     <div>
-      <%= f.submit "Send", class: "small button" %>
+      <%= f.submit "Send", class: "small button",
+          onclick: "return confirm('This message contains no confidential info.' )" %>
     </div>
     <% end %>
   </div>
